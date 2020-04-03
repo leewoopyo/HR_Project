@@ -58,68 +58,42 @@
 		</table>
 </section>
 
-<%-- <div id="pagination" class="pagination">
-	
-	${pageCnt}
-	
-	<c:set var="totalPageCnt" scope="session" value="${pageCnt}"/>
-	<c:set var="pageStart" value="${startPage}"/>
-	<c:set var="perPage" scope="session"  value="5"/>
-	<c:if test="${empty pageStart or pageStart < 0}">
-    	<c:set var="pageStart" value="0"/>
-	</c:if>
-	
-	<c:if test="${totalPageCnt < pageStart}">
-       <c:set var="pageStart" value="${pageStart - 5}"/>
-	</c:if>
-	
-	<a href="#" onclick="sendparam(${pageStart - 5})">&laquo;</a>
-	
-	    <c:forEach var="i" begin="${pageStart+1}" end="${pageStart + perPage}" varStatus="status">
-			<a class="page" href="#" onclick="sendparam(${status.index}-1)">${status.index}</a>
-		</c:forEach>
-		
-    <a href="#" onclick="sendparam(${pageStart + 5})">&raquo;</a>  
-</div> --%>
-
-
 <div id="pagination" class="pagination">
-	
+	${pageCnt}
+	${startPage}
 	<c:set var="totalPageCnt" scope="session" value="${pageCnt}"/>
 	<c:set var="pageStart" value="${startPage}"/>
 	<c:set var="perPage" scope="session"  value="5"/>
 	
-	<%-- 페이지네이션 시작 부분 --%>
 	<c:choose>
 		<c:when test="${pageStart == 1}">
-			<c:forEach var="i" begin="${pageStart}" end="${pageStart + perPage-1}" varStatus="status">
+		</c:when>
+		<c:otherwise>		
+	    	<a href="#" onclick="sendparam(${pageStart - perPage-1},${pageStart - perPage})">&laquo;</a>
+		</c:otherwise>
+	</c:choose>
+	
+	<c:choose>
+		<c:when test="${pageCnt-pageStart < perPage}">
+			<c:forEach var="i" begin="${pageStart}" end="${pageStart + ((pageCnt-1)%perPage)}" varStatus="status">
 				<a class="page" href="#" onclick="sendparam(${status.index}-1,${startPage})">${status.index}</a>
 			</c:forEach>
+		</c:when>
+		<c:otherwise>		
+	    	<c:forEach var="i" begin="${pageStart}" end="${pageStart + perPage -1}" varStatus="status">
+				<a class="page" href="#" onclick="sendparam(${status.index}-1,${pageStart})">${status.index}</a>
+			</c:forEach>
+		</c:otherwise>
+	</c:choose>
+	
+	<c:choose>
+		<c:when test="${pageCnt-pageStart < perPage}">
+		</c:when>
+		<c:otherwise>		
 	    	<a href="#" onclick="sendparam(${pageStart + perPage-1},${pageStart + perPage})">&raquo;</a> 
-		</c:when>
-		
-		<%-- 페이지네이션 마지막 부분 --%>
-		<c:when test="${pageCnt/pageStart < 2 and pageCnt % pageStart < perPage}">
-			<a href="#" onclick="sendparam(${pageStart - perPage -1},${pageStart - perPage})">&laquo;</a>
-		    <c:forEach var="i" begin="${pageStart}" end="${pageStart + (pageCnt % pageStart)}" varStatus="status">
-				<a class="page" href="#" onclick="sendparam(${status.index}-1,${startPage})">${status.index}</a>
-			</c:forEach>
-		</c:when>
-		
-		<%-- 페이지네이션 중간 부분 --%>
-		<c:otherwise>
-			<a href="#" onclick="sendparam(${pageStart - perPage-1},${pageStart - perPage})">&laquo;</a>
-		
-		    <c:forEach var="i" begin="${pageStart}" end="${pageStart + perPage -1}" varStatus="status">
-				<a class="page" href="#" onclick="sendparam(${status.index}-1,${startPage})">${status.index}</a>
-			</c:forEach>
-			
-			<a href="#" onclick="sendparam(${pageStart + perPage-1},${pageStart + perPage})">&raquo;</a>
-			
 		</c:otherwise>
 	</c:choose>
 </div>
-
 
 <script src="${pageContext.request.contextPath}/js/user_list.js"></script>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>

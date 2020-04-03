@@ -63,10 +63,16 @@
 	</table>
 </section>
 
+
+
 <div style="display: flex; margin : 10px;" >
 	<div style="margin-right: 10px;"><button id="delete_user" onclick="delete_user()">선택 삭제</button></div>
 	<div><button id="go_insert" onClick="location.href='./go_insert_user'">회원 추가</button></div>
 </div>
+
+
+
+
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/user_page.js"></script>
 

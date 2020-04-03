@@ -28,6 +28,7 @@ function sendparam(pageNum,startPage){
 	console.log("페이지 : " +  pageNum);
 	console.log("시작페이지 : " +  startPage);
 	
+	//전체 조회를 제외한 나머지 검색은 검색어가 공백이면 입력하라는 경고창이 나옴
 	if(val !== 'all'){
 		if(find_str === '')
 			alert('검색어를 입력해주세요.');
@@ -49,21 +50,16 @@ function delete_user(){
 	let param_list = [];
 	let param_json;
 	
-	console.log(checkbox);
-	console.log(username_list);
-	
+	//체크 박스에 체크된 데이터를 json형식으로 저장해서 리스트에 담음
 	for(let i = 0;i < checkbox.length; i++){
 		if(checkbox[i].checked === true){
-			//console.log(i);
-			//console.log(username_list[i].innerHTML);
 			param = {username : username_list[i].innerHTML};
 			param_list.push(param);
 			console.log(param);
 		}
 	}
-	console.log(param_list);
+	//리스트를 json형태의 데이터로 변환
 	param_json = {deleteuUser : JSON.stringify(param_list)}
-	console.log(param_json);
-
+	//
 	location.href="./user/delete_user/" + $.param(param_json);
 }

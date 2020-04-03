@@ -10,6 +10,8 @@ public interface User_Service {
 	public List<User> findAllPageable(int pageNum);
 	//필터 적용 데이터 조회 (페이지 적용)
 	public List<User> findAllByFilterAndPageable(String select_column, String find_str, int pageNum);
+	//데이터 삽입
+	public void insert_user(User user);
 	//데이터 삭제
 	public void delete_users(String deleteUser);
 	
