@@ -1,0 +1,62 @@
+#user_list{
+	width : 900px;
+	height : 550px;
+    border-spacing: 0px;
+    border-left: 1px solid;
+    border-top: 1px solid;
+}
+
+.filter{
+	border-spacing: 0px;
+	border-left: 1px solid;
+    border-top: 1px solid;
+}
+.filter tr td{
+	border-right: 1px solid;
+    border-bottom: 1px solid;
+}
+
+.filter tr td:nth-child(1){
+	background-color: wheat;
+}
+
+#user_list tr:first-child{
+	background-color: wheat;
+	height : 50px;
+}
+
+#user_list tr td{
+	border-right: 1px solid;
+    border-bottom: 1px solid;
+}
+
+#user_list tr:first-child td:nth-child(1){
+	width : 30px;
+	text-align: center;
+}
+
+#user_list tr:first-child td:nth-child(2){
+	width : 30px;
+} 
+
+.pagination {
+  display: inline-block;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+/* 현제 적용 안되 있는 기능 active클래스에 다음을 적용한다.(현제 active클래스를 추가해주는 기능이 없음) */
+.pagination a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+/* :not(태그이름) 해당 태그는 제외하는 기능 */
+.pagination a:hover:not(.active) {
+	background-color: #ddd;
+}

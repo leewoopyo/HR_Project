@@ -1,0 +1,25 @@
+body{
+	font-family: sans-serif;
+}
+
+.menubar{
+	display: flex;
+	height : 60px;
+	background-color: gainsboro;
+}
+
+.menubar div{
+	position: relative;
+    margin: 17px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.menubar div a:link, a:active, a:visited{
+	color : black;
+	text-decoration: none;
+}
+
+#content{
+	margin : 0px;
+}

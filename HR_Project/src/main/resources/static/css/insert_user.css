@@ -1,0 +1,97 @@
+.insert_table {
+	border-spacing: 0;
+	border: 1px solid;
+}
+
+.insert_table tr td {
+	border: 1px solid;
+}
+
+.insert_table tr td:nth-child(2) {
+	display: flex;
+}
+
+.input_section {
+	display: flex;
+	height: 40px;
+}
+
+.input_section p {
+	position: relative;
+	bottom: 7px;
+}
+
+input[type=radio] {
+	border: 0px;
+	width: 10%;
+	height: 1.5em;
+}
+
+input[type=text] {
+	border-radius: 10px;
+	border-color: black;
+	width: 200px;
+	height: 25px;
+	font-size: 17px; margin : 5px;
+	font-family: auto;
+	margin: 5px;
+}
+
+input[type=password] {
+	border-radius: 10px;
+	border-color: black;
+	width: 200px;
+	height: 25px;
+	font-size: 17px;
+	margin: 5px;
+	font-family: auto;
+}
+
+input[type=date] {
+	border-radius: 10px;
+	border-color: black;
+	width: 200px;
+	height: 25px;
+	font-size: 17px;
+	margin: 5px;
+	font-family: auto;
+}
+
+input[type=number] {
+	border-radius: 10px;
+	border-color: black;
+	width: 200px;
+	height: 25px;
+	font-size: 17px;
+	margin: 5px;
+	font-family: auto;
+}
+
+#telnum1 {
+	border-radius: 10px;
+	border-color: black;
+	width: 65px;
+	height: 32px;
+	font-size: 17px;
+	border-width: 2px;
+	margin: 5px;
+	font-family: auto;
+}
+
+#e_mail_end {
+	border-radius: 10px;
+	border-color: black;
+	width: 120px;
+	height: 32px;
+	font-size: 17px;
+	border-width: 2px;
+	margin: 5px;
+	font-family: auto;
+}
+
+.validation {
+	color: red;
+	font-size: 17px;
+	font-weight: bold;
+	margin-top: 5px;
+}
