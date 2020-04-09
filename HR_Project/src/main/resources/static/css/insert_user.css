@@ -78,7 +78,7 @@ input[type=number] {
 	font-family: auto;
 }
 
-#e_mail_end {
+#eMail_end {
 	border-radius: 10px;
 	border-color: black;
 	width: 120px;
@@ -94,4 +94,8 @@ input[type=number] {
 	font-size: 17px;
 	font-weight: bold;
 	margin-top: 5px;
+}
+.btn{
+	margin: 5px;
+    padding: 3px 10px;
 }

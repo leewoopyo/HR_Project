@@ -132,28 +132,29 @@ function next_focus() {
 }
 
 //이메일
-function check_e_mail(){
+function check_eMail(){
 	//이메일 값
-	let e_mail_front = document.getElementById("e_mail_front").value;
-	let e_mail_end = document.getElementById("e_mail_end");
-	let e_mail_end_val = e_mail_end.options[e_mail_end.selectedIndex].value;
-	let e_mail_val = e_mail_front + '@' + e_mail_end_val;
-	let e_mail = document.getElementById("e_mail");
-	e_mail.value = e_mail_val;
-	let e_mail_validation = document.getElementById("e_mail_validation");
+	let eMail_front = document.getElementById("eMail_front").value;
+	let eMail_end = document.getElementById("eMail_end");
+	let eMail_end_val = eMail_end.options[eMail_end.selectedIndex].value;
+	let eMail_val = eMail_front + '@' + eMail_end_val;
+	let eMail = document.getElementById("eMail");
+	eMail.value = eMail_val;
+	let eMail_validation = document.getElementById("eMail_validation");
 
 	//이메일 유효성 검사
-	if (e_mail_front === '') {
-		e_mail_validation.innerHTML = "이메일을 입력하세요.";
+	if (eMail_front === '') {
+		eMail_validation.innerHTML = "이메일을 입력하세요.";
 		chk_email = false;
 	}
 	else {
-		e_mail_validation.innerHTML = "";
+		eMail_validation.innerHTML = "";
 		chk_email = true;
 	}
 }
 
-//서밋하는 메소드
+
+
 function insert() {
 	let insert_frm = document.getElementById('insert_frm');
 
@@ -283,30 +284,30 @@ function insert() {
 
 	//6.-------------------------------------------------------
 	//이메일 값
-	let e_mail_front = document.getElementById("e_mail_front").value;
-	let e_mail_end = document.getElementById("e_mail_end");
-	let e_mail_end_val = e_mail_end.options[e_mail_end.selectedIndex].value;
-	let e_mail_val = e_mail_front + '@' + e_mail_end_val;
-	let e_mail = document.getElementById("e_mail");
-	e_mail.value = e_mail_val;
-	let e_mail_validation = document.getElementById("e_mail_validation");
+	let eMail_front = document.getElementById("eMail_front").value;
+	let eMail_end = document.getElementById("eMail_end");
+	let eMail_end_val = eMail_end.options[eMail_end.selectedIndex].value;
+	let eMail_val = eMail_front + '@' + eMail_end_val;
+	let eMail = document.getElementById("eMail");
+	eMail.value = eMail_val;
+	let eMail_validation = document.getElementById("eMail_validation");
 
 	//이메일 유효성 검사
-	if (e_mail_front === '') {
-		e_mail_validation.innerHTML = "이메일을 입력하세요.";
+	if (eMail_front === '') {
+		eMail_validation.innerHTML = "이메일을 입력하세요.";
 		chk_email = false;
 	}
 	else {
-		e_mail_validation.innerHTML = "";
+		eMail_validation.innerHTML = "";
 		chk_email = true;
 	}
 	
 	//7.-------------------------------------------------------
 	//성별 결정
-	let S_type = document.getElementsByName("S_type");
+	let sType = document.getElementsByName("sType");
 	
-	for(let i=0; i < S_type.length; i++){
-		if(S_type[i].checked === true){
+	for(let i=0; i < sType.length; i++){
+		if(sType[i].checked === true){
 			chk_stype = true;
 			break;
 		}else{
@@ -320,7 +321,7 @@ function insert() {
 	console.log('birth : ' + chk_birth);
 	console.log('tel : ' + chk_tel);
 	console.log('email : ' + chk_email);
-	console.log('s_type : ' + chk_stype);
+	console.log('sType : ' + chk_stype);
 	console.log('--------------------------');
 
 	if(chk_username === true){
@@ -340,3 +341,119 @@ function insert() {
 		}
 	}
 }
+
+//서밋하는 메소드
+function update() {
+	let update_frm = document.getElementById('update_frm');
+	update_frm.submit();
+
+	//3.-------------------------------------------------------
+	//이름 체크
+	let name = document.getElementById("update_name").value;
+	const validation_korean = /[a-z0-9ㄱ-ㅎㅏ-ㅣ]|[ \[\]{}()<>?|`~!@#$%^&*-_+=,.;:\"'\\]/g;
+	let name_validation = document.getElementById("name_validation");
+
+	if (name == '') {
+		name_validation.innerHTML = "이름이 공백입니다.";
+		chk_name = false;
+	} else if (validation_korean.test(name)) {
+		name_validation.innerHTML = "이름은 한글만 가능합니다.";
+		chk_name = false;
+	} else if (name.length <= 1) {
+		name_validation.innerHTML = "이름은 2글자 이상 이어야 합니다.";
+		chk_name = false;
+	} else {
+		name_validation.innerHTML = "";
+		//검사에 통과하면 체크하는 변수를 true로 한다.
+		chk_name = true;
+	}
+
+	//4.-------------------------------------------------------
+	//생년월일 체크
+	let birth = document.getElementById("update_birth").value;
+	let birth_validation = document.getElementById("birth_validation");
+	if (birth === '') {
+		birth_validation.innerHTML = '생년월일을 입력해 주세요 .';
+		chk_birth = false;
+	} else {
+		birth_validation.innerHTML = '';
+		chk_birth = true;
+	}
+
+	//5.-------------------------------------------------------
+	//전화번호 값
+	let telnum0 = document.getElementById("telnum1");
+
+	//각 적힌 전화번호 값들을 가져오고
+	let telnum1 = telnum0.options[telnum0.selectedIndex].value;
+	let telnum2 = document.getElementById("telnum2").value;
+	let telnum3 = document.getElementById("telnum3").value;
+	//각 문자를 조합한다. 
+	let tel = telnum1 + '-' + telnum2 + '-' + telnum3;
+	//유효성 검사 문구 
+	let tel_validation = document.getElementById("tel_validation");
+	//조합된 전화번호를 input태그에 value값으로 저장한다.
+	document.getElementById("update_tel").value = tel;
+
+	//전화번호 유효성 검사
+	if (tel.length != 13) {
+		tel_validation.innerHTML = "전화번호를 올바르게 입력하세요";
+		chk_tel = false;
+	} else {
+		tel_validation.innerHTML = "";
+		chk_tel = true;
+	}
+
+	//6.-------------------------------------------------------
+	//이메일 값
+	let eMail_front = document.getElementById("eMail_front").value;
+	let eMail_end = document.getElementById("eMail_end");
+	let eMail_end_val = eMail_end.options[eMail_end.selectedIndex].value;
+	let eMail_val = eMail_front + '@' + eMail_end_val;
+	let eMail = document.getElementById("update_eMail");
+	eMail.value = eMail_val;
+	let eMail_validation = document.getElementById("eMail_validation");
+
+	//이메일 유효성 검사
+	if (eMail_front === '') {
+		eMail_validation.innerHTML = "이메일을 입력하세요.";
+		chk_email = false;
+	} else {
+		eMail_validation.innerHTML = "";
+		chk_email = true;
+	}
+
+	//7.-------------------------------------------------------
+	//성별 결정
+	let sType = document.getElementsByName("update_sType");
+
+	for (let i = 0; i < sType.length; i++) {
+		if (sType[i].checked === true) {
+			chk_stype = true;
+			break;
+		} else {
+			chk_stype = false;
+		}
+	}
+
+	console.log('name : ' + chk_name);
+	console.log('birth : ' + chk_birth);
+	console.log('tel : ' + chk_tel);
+	console.log('eMail : ' + chk_email);
+	console.log('sType : ' + chk_stype);
+	console.log('--------------------------');
+
+	if (chk_name === true) {
+		if (chk_birth === true) {
+			if (chk_tel === true) {
+				if (chk_email === true) {
+					if (chk_stype === true) {
+						console.log('submit');
+						insert_frm.submit();
+					}
+				}
+			}
+		}
+	}
+}
+

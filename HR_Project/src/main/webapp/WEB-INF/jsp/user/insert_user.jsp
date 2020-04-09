@@ -73,29 +73,29 @@ String today = currentDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));		/
 			<td>이메일</td>
 			<td style="display : block;">
 				<div class="input_section">
-					<input type="text" id="e_mail_front" name="e_mail_front" onfocusout="check_e_mail()">
+					<input type="text" id="eMail_front" name="eMail_front" onfocusout="check_eMail()">
 					<p>@</p>
-					<select id="e_mail_end" name="e_mail_end">
-						<option value="naver">naver.com</option>
-						<option value="gmail">gmail.com</option>
+					<select id="eMail_end" name="eMail_end">
+						<option value="naver.com">naver.com</option>
+						<option value="gmail.com">gmail.com</option>
 					</select>
 				</div>
-				<div class="validation" id="e_mail_validation"></div>
-				<input type="hidden" id="e_mail" name="e_mail">
+				<div class="validation" id="eMail_validation"></div>
+				<input type="hidden" id="eMail" name="eMail">
 			</td>
 		</tr>
 		<tr>
 			<td>성별</td>
 			<td>
-				<input type="radio" name="S_type" value="남" checked="checked"/>남
-				<input type="radio" name="S_type" value="여">여
+				<input type="radio" name="sType" value="남" checked="checked"/>남
+				<input type="radio" name="sType" value="여">여
 			</td>
 		</tr>
 	</table>
 	<input type="hidden" name="created" value="<%=today %>">
 </form>
-<button onclick="insert()">등록</button>
-<button onclick="location.href='./go_user'">목록</button>
+<button class = "btn" onclick="insert()">등록</button>
+<button class = "btn" onclick="location.href='./go_user'">목록</button>
 
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/insert_user.js"></script>

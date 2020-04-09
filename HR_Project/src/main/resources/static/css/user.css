@@ -34,9 +34,26 @@
 	width : 30px;
 	text-align: center;
 }
-
 #user_list tr:first-child td:nth-child(2){
 	width : 30px;
+} 
+#user_list tr:first-child td:nth-child(3){
+	width : 180px;
+} 
+#user_list tr:first-child td:nth-child(4){
+	width : 100px;
+} 
+#user_list tr:first-child td:nth-child(6){
+	width : 130px;
+} 
+#user_list tr:first-child td:nth-child(7){
+	width : 110px;
+} 
+#user_list tr:first-child td:nth-child(8){
+	width : 60px;
+} 
+#user_list tr:first-child td:nth-child(9){
+	width : 110px;
 } 
 
 .pagination {
@@ -60,3 +77,25 @@
 .pagination a:hover:not(.active) {
 	background-color: #ddd;
 }
+
+/* 이름의 a링크 태그에 대한 css정의 */
+.username_list a:link, a:active, a:visited{
+	color : black;
+	text-decoration: none;
+}
+
+#user_list tr:nth-child(1) td div{
+	cursor: pointer;
+}
+/* 이름의 a링크 태그에 대한 css정의 */
+/* #user_list tr:nth-child(1) td a{
+	color : black;
+	text-decoration: none;
+} */
+
+.icon{
+	display: none;
+	font-size: 20px;	
+}
+
+

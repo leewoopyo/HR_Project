@@ -8,6 +8,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/user.css">
+<style type="text/css">
+
+</style>
 </head>
 <body>
 
@@ -18,13 +21,55 @@
 			<tr>
 				<td><input type="checkbox" id="all_chk" onclick="allchk()"></td>
 				<td></td>
-				<td><p align=center>아이디</p></td>
-				<td><p align=center>이름</p></td>
-				<td><p align=center>이메일</p></td>
-				<td><p align=center>연락처</p></td>
-				<td><p align=center>생년월일</p></td>
-				<td><p align=center>성별</p></td>
-				<td><p align=center>가입일자</p></td>
+				<td>
+					<div style="display: inline-flex;" onclick="sort('username'),select_icon('username',0), sendparam(${pageNum},${startPage})" >
+						<a>아이디</a>
+						<ion-icon id="caret-down-outline" name="caret-down-outline" class="icon"></ion-icon>
+						<ion-icon id="caret-up-outline" name="caret-up-outline" class="icon"></ion-icon>
+					</div>
+				</td>
+				<td>
+					<div style="display: inline-flex;" onclick="sort('name'),select_icon('name',2), sendparam(${pageNum},${startPage})">
+						<a  >이름</a>
+						<ion-icon id="caret-down-outline" name="caret-down-outline" class="icon"></ion-icon>
+						<ion-icon id="caret-up-outline" name="caret-up-outline" class="icon"></ion-icon>
+					</div>
+				</td>
+				<td>
+					<div style="display: inline-flex;" onclick="sort('eMail'),select_icon('eMail',4), sendparam(${pageNum},${startPage})">
+						<a>이메일</a>
+						<ion-icon id="caret-down-outline" name="caret-down-outline" class="icon"></ion-icon>
+						<ion-icon id="caret-up-outline" name="caret-up-outline" class="icon"></ion-icon>
+					</div>
+				</td>
+				<td>
+					<div style="display: inline-flex;" onclick="sort('tel'),select_icon('tel',6), sendparam(${pageNum},${startPage})" >
+						<a>연락처</a>
+						<ion-icon id="caret-down-outline" name="caret-down-outline" class="icon"></ion-icon>
+						<ion-icon id="caret-up-outline" name="caret-up-outline" class="icon"></ion-icon>
+					</div>
+				</td>
+				<td>
+					<div style="display: inline-flex;" onclick="sort('birth'),select_icon('birth',8), sendparam(${pageNum},${startPage})" >
+						<a>생년월일</a>
+						<ion-icon id="caret-down-outline" name="caret-down-outline" class="icon"></ion-icon>
+						<ion-icon id="caret-up-outline" name="caret-up-outline" class="icon"></ion-icon>
+					</div>
+				</td>
+				<td>
+					<div style="display: inline-flex;" onclick="sort('sType'),select_icon('sType',10), sendparam(${pageNum},${startPage})" >
+						<a>성별</a>
+						<ion-icon id="caret-down-outline" name="caret-down-outline" class="icon"></ion-icon>
+						<ion-icon id="caret-up-outline" name="caret-up-outline" class="icon"></ion-icon>
+					</div>
+				</td>
+				<td>
+					<div style="display: inline-flex;"  onclick="sort('created'),select_icon('created',12), sendparam(${pageNum},${startPage})" >
+						<a>가입일자</a>
+						<ion-icon id="caret-down-outline" name="caret-down-outline" class="icon"></ion-icon>
+						<ion-icon id="caret-up-outline" name="caret-up-outline" class="icon"></ion-icon>
+					</div>
+				</td>
 			</tr>
 			<c:choose>
 				<c:when test="${pageCnt == 0}">
@@ -38,13 +83,13 @@
 					<c:forEach items="${list}" var="e" varStatus="status">
 						<tr style="height : 50px;" class="list_td"> 
 							<td style="background-color: wheat;"><input type="checkbox" class="chk_box"></td>
-							<td style="background-color: wheat;"><p align=center>${status.index+1}</p></td>
-							<td><p align=center class="username_list">${e.username}</p></td>
+							<td style="background-color: wheat;"><p align=center class="index_num">${(status.index+1)+(pageNum*10)}</p></td>
+							<td><p align=center class="username_list"><a href="./go_user_info/${e.username}">${e.username}</a></p></td>
 							<td><p align=center>${e.name}</p></td>
-							<td><p align=center>${e.e_mail}</p></td>
+							<td><p align=center>${e.eMail}</p></td>
 							<td><p align=center>${e.tel}</p></td>
 							<td><p align=center><fmt:formatDate value="${e.birth}" pattern="yyyy-MM-dd"/></p></td>
-							<td><p align=center>${e.s_type}</p></td>
+							<td><p align=center>${e.sType}</p></td>
 							<td><p align=center><fmt:formatDate value="${e.created}" pattern="yyyy-MM-dd"/></p></td>
 						</tr>	
 					</c:forEach>
@@ -59,8 +104,6 @@
 </section>
 
 <div id="pagination" class="pagination">
-	${pageCnt}
-	${startPage}
 	<c:set var="totalPageCnt" scope="session" value="${pageCnt}"/>
 	<c:set var="pageStart" value="${startPage}"/>
 	<c:set var="perPage" scope="session"  value="5"/>
@@ -69,19 +112,19 @@
 		<c:when test="${pageStart == 1}">
 		</c:when>
 		<c:otherwise>		
-	    	<a href="#" onclick="sendparam(${pageStart - perPage-1},${pageStart - perPage})">&laquo;</a>
+	    	<a href="#" onclick="sendparam(${pageStart - perPage-1},${pageStart - perPage}), save_chk()">&laquo;</a>
 		</c:otherwise>
 	</c:choose>
 	
 	<c:choose>
 		<c:when test="${pageCnt-pageStart < perPage}">
 			<c:forEach var="i" begin="${pageStart}" end="${pageStart + ((pageCnt-1)%perPage)}" varStatus="status">
-				<a class="page" href="#" onclick="sendparam(${status.index}-1,${startPage})">${status.index}</a>
+				<a class="page" href="#" onclick="sendparam(${status.index}-1,${startPage}),save_chk()">${status.index}</a>
 			</c:forEach>
 		</c:when>
 		<c:otherwise>		
 	    	<c:forEach var="i" begin="${pageStart}" end="${pageStart + perPage -1}" varStatus="status">
-				<a class="page" href="#" onclick="sendparam(${status.index}-1,${pageStart})">${status.index}</a>
+				<a class="page" href="#" onclick="sendparam(${status.index}-1,${pageStart}),save_chk()">${status.index}</a>
 			</c:forEach>
 		</c:otherwise>
 	</c:choose>
@@ -90,7 +133,7 @@
 		<c:when test="${pageCnt-pageStart < perPage}">
 		</c:when>
 		<c:otherwise>		
-	    	<a href="#" onclick="sendparam(${pageStart + perPage-1},${pageStart + perPage})">&raquo;</a> 
+	    	<a href="#" onclick="sendparam(${pageStart + perPage-1},${pageStart + perPage}),save_chk()">&raquo;</a> 
 		</c:otherwise>
 	</c:choose>
 </div>
@@ -99,17 +142,62 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 <script type="text/javascript">
-
+//데이터가 없을 때 처리할 부분
 $( document ).ready(function() {
-
+	
 	let blank = document.getElementById("blank");
 	let list_td = document.getElementsByClassName("list_td");
+	let chk_box = document.getElementsByClassName('chk_box');
+	let index_num = document.getElementsByClassName('index_num');
+	let pageNum = ${pageNum};
+	let list_length = checked_list.length;
 
+	//리스트 테이블에 데이터가 10개 모두 있으면 빈공간 채우는 테이블을 없앤다.
 	if(list_td.length === 10){
 		blank.style.display = 'none';
 	}
-});
+	
+	//리스트를 보고 체크하게 하는 기능
+	for(let i = 0;i < checked_list.length;i++){
+		for(let j=0;j < index_num.length;j++){
+			if(checked_list[i] === index_num[j].innerHTML){
+				chk_box[j].checked = true; 
+			}
+		}
+	}
 
+	//해당 페이지 리스트 초기화
+	for(let i=0; i < list_length; i++){
+		for(let j = (pageNum*10)+1; j < (pageNum*10)+11 ; j++ ){
+			if(checked_list[i] === j.toString()){
+				checked_list.splice(i,1);
+				checked_username_list.splice(i,1);
+			}
+		}
+	}
+
+	//정렬 정보 담기
+	sortType = '${sortType}';
+	sortDirection = '${sortDirection}';
+
+	//정렬 화살표 정보 출력
+	let icon = document.getElementsByClassName('icon');
+	
+	if(sortType === icon_type){
+		if(sortDirection === 'desc'){
+			icon[icon_direction].style.display = 'block';
+		}else if(sortDirection === 'asc'){
+			icon[icon_direction+1].style.display = 'block';
+		}
+	}else if(icon_type === 'init'){
+/* 		sortType = 'id';
+		sortDirection = 'desc'; */
+		for(let i=0;i < icon.length;i++){
+			icon[i].style.display = 'none';
+		}
+	}
+	
+});
 
 </script>
 

@@ -1,13 +1,16 @@
 package com.spring.human_resources.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.JsonArray;
@@ -26,23 +29,37 @@ public class User_Service_Impl implements User_Service {
 
 	//전체 데이터 조회
 	@Override
-	public List<User> findAllPageable(int pageNum) {
-		//페이지 처리하는 객체 컨트롤러로부터 페이지 번호를 받는다.
-		//앞 인자 : 페이지 번호, 뒤 인자 : 나타낼 데이터 수
-		PageRequest pageable = PageRequest.of(pageNum, 10);
+	public List<User> findAllPageable(int pageNum,String sortType, String sortDirection) {
+		
+		PageRequest pageable = null;
+		
+		if(sortDirection.equals("desc")) {
+			pageable = PageRequest.of(pageNum,10, Sort.Direction.DESC, sortType);			
+		}else if(sortDirection.equals("asc")) {
+			pageable = PageRequest.of(pageNum,10, Sort.Direction.ASC, sortType);
+		}
+		
+		
 		//해당 페이지 설정에 따른 전체 데이터를 page객체에 담음
 		Page<User> page = user_Repository.findAll(pageable);
 		//모델에 담기위해 page객체를 list로 변환
 		List<User> list = page.getContent();
+		
 		return list;
 	}
 
 	// 필터 적용된 데이터 조회
 	@Override
-	public List<User> findAllByFilterAndPageable(String select_column, String find_str, int pageNum) {
-		//페이지 처리하는 객체 컨트롤러로부터 페이지 번호를 받는다.
-		//앞 인자 : 페이지 번호, 뒤 인자 : 나타낼 데이터 수
-		PageRequest pageable = PageRequest.of(pageNum, 10);
+	public List<User> findAllByFilterAndPageable(String select_column, String find_str, int pageNum,String sortType,String sortDirection) {
+
+		PageRequest pageable = null;
+		
+		if(sortDirection.equals("desc")) {
+			pageable = PageRequest.of(pageNum,10, Sort.Direction.DESC, sortType);			
+		}else if(sortDirection.equals("asc")) {
+			pageable = PageRequest.of(pageNum,10, Sort.Direction.ASC, sortType);
+		}
+		
 		//필터 처리를 위한 map 객체 생성
 		Map<String, Object> filter = new HashMap<String, Object>();
 		//filter에 필터 조건과 검색 값을 입력
@@ -60,10 +77,42 @@ public class User_Service_Impl implements User_Service {
 	public void insert_user(User user) {
 		user_Repository.save(user);
 	}
+	
+	
+
+	@Override
+	public void update_user(User user, String update_name, Date update_birth, String update_tel, String update_eMail,
+			String update_sType) {
+		
+		System.out.println(user.getUsername());
+		System.out.println(update_name);
+		System.out.println(update_birth);
+		System.out.println(update_tel);
+		System.out.println(update_eMail);
+		System.out.println(update_sType);
+		
+		
+		
+		User updateUser = user_Repository.findByUsername(user.getUsername());
+		
+		updateUser.setName(update_name);
+		updateUser.setBirth(update_birth);
+		updateUser.setTel(update_tel);
+		updateUser.seteMail(update_eMail);
+		updateUser.setsType(update_sType);
+		
+		user_Repository.save(updateUser);
+	}
+
+	//데이터 삭제 (단일)
+	@Override
+	public void delete_user(String deleteUser) {
+		user_Repository.delete(user_Repository.findByUsername(deleteUser));
+	}
 
 	// 데이터 삭제
 	@Override
-	public void delete_users(String deleteUser) {
+	public void delete_users(String deleteUser_list) {
 		// 1. VO와 매핑되서 데이터를 전송하는 방법
 //		Gson gson = new Gson();	 
 //		Type type = new TypeToken<List<User_Delete_VO>>(){}.getType();  
@@ -75,7 +124,7 @@ public class User_Service_Impl implements User_Service {
 		// 방법2 : 파싱을 통한 방법
 		JsonParser parser = new JsonParser();	//json parser객체 생성
 		//JsonObject객체에 문자열로 받은 json데이터를 파싱함 
-		JsonObject univ = (JsonObject) parser.parse("{" + deleteUser + "}");
+		JsonObject univ = (JsonObject) parser.parse("{" + deleteUser_list + "}");
 		//파싱한 데이터를 배열 객체에 담음
 		JsonArray arr = (JsonArray) univ.get("deleteuUser");
 		String username;

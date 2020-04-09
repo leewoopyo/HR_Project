@@ -23,15 +23,15 @@
 							<option value="all">전체 조회</option>
 							<option value="username">아이디</option>
 							<option value="name">이름</option>
-							<option value="e_mail">이메일</option>
+							<option value="eMail">이메일</option>
 							<option value="tel">연락처</option>
 							<option value="birth">생년월일</option>
-							<option value="S_type">성별</option>
+							<option value="sType">성별</option>
 							<option value="created">가입일자</option>
 						</select>
 					</div>	
 					<div><input type="text" id="find_str"></div>
-					<div><button onclick="saveparam(), sendparam(0,1)">조회</button></div>
+					<div><button onclick="saveparam(),init_icon(), sendparam(0,1) ">조회</button></div>
 				</div>
 			</td>
 		</tr>
@@ -77,7 +77,9 @@
 <script src="${pageContext.request.contextPath}/js/user_page.js"></script>
 
 <script>
-
+	$( document ).ready(function() {
+		sendparam(0,1);
+	});
 </script>
 
 </body>

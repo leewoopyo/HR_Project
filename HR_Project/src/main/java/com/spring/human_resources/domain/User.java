@@ -38,10 +38,10 @@ public class User {
 	private String tel;	//전화번호 
 
 	@Column
-	private String e_mail;	//이메일
+	private String eMail;	//이메일
 	
 	@Column
-	private String S_type; //성별
+	private String sType; //성별
 	
 	@Column
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -60,9 +60,9 @@ public class User {
 		super();
 		this.username = username;
 	}
-	
-	public User(Long id, String username, String password, String name, Date birth, String tel, String e_mail,
-			String s_type, Date created, HR hr) {
+
+	public User(Long id, String username, String password, String name, Date birth, String tel, String eMail,
+			String sType, Date created, HR hr) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -70,13 +70,11 @@ public class User {
 		this.name = name;
 		this.birth = birth;
 		this.tel = tel;
-		this.e_mail = e_mail;
-		S_type = s_type;
+		this.eMail = eMail;
+		this.sType = sType;
 		this.created = created;
 		this.hr = hr;
 	}
-
-
 
 	public Long getId() {
 		return id;
@@ -126,20 +124,20 @@ public class User {
 		this.tel = tel;
 	}
 
-	public String getE_mail() {
-		return e_mail;
+	public String geteMail() {
+		return eMail;
 	}
 
-	public void setE_mail(String e_mail) {
-		this.e_mail = e_mail;
+	public void seteMail(String eMail) {
+		this.eMail = eMail;
 	}
 
-	public String getS_type() {
-		return S_type;
+	public String getsType() {
+		return sType;
 	}
 
-	public void setS_type(String s_type) {
-		S_type = s_type;
+	public void setsType(String sType) {
+		this.sType = sType;
 	}
 
 	public Date getCreated() {
@@ -158,8 +156,5 @@ public class User {
 		this.hr = hr;
 	}
 	
-	
-	
-
 	
 }
