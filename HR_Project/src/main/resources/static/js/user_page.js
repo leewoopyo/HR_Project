@@ -1,16 +1,3 @@
-////선택할 검색 조건
-//var select_column;
-////검색할 검색어 
-//var find_str;
-////selected 뽑는 변수
-//var val = 'all';
-////체크 리스트 저장하는 리스트
-//var checked_list = [];
-//var checked_username_list = []; 
-////정렬 상태값 저장
-//var sortType = 'id';
-//var sortDirection = 'desc';
-
 
 //검색 조건과 검색어를 저장
 function saveparam(){
@@ -52,25 +39,17 @@ function sendparam(pageNum,startPage){
 	}
 }
 
+//삭제 할 파라메터를 넘기는 메소드
 function delete_user(){
 	
-	let chk_box = document.getElementsByClassName("chk_box");
-	let index_num = document.getElementsByClassName('index_num');
-	let username_list = document.getElementsByClassName("username_list");
+	let chk_box = document.getElementsByClassName("chk_box");	//체크박스 변수(해당 페이지)
+	let index_num = document.getElementsByClassName('index_num');	//체크된 데이터의 번호 
+	let username_list = document.getElementsByClassName("username_list");	//체크된 데이터의 아이디 값
 	let param;  
 	let param_list = [];
 	let param_json;
 	
-//	//체크 박스에 체크된 데이터를 json형식으로 저장해서 리스트에 담음
-//	for(let i = 0;i < chk_box.length; i++){
-//		if(chk_box[i].checked === true){
-//			param = {username : username_list[i].innerText};
-//			param_list.push(param);
-//			console.log(param);
-//		}
-//	}
-	
-	//리스트에 데이터 삽입 
+	//모든 데이터에서 체크된 리스트 안에 해당 페이지의 체크된 값을 넣음 
 	for(let i=0; i < chk_box.length; i++){
 		if(chk_box[i].checked === true){
 			checked_list.push(index_num[i].innerHTML);
@@ -78,19 +57,14 @@ function delete_user(){
 		}
 	}
 	
-	console.log(checked_list);
-	console.log(checked_username_list);
-	
-	//체크 박스에 체크된 데이터를 json형식으로 저장해서 리스트에 담음
+	//전체 체크된 데이터를 각각 json형식으로 변환시킴
 	for(let i = 0;i < checked_username_list.length; i++){
 		param = {username : checked_username_list[i]};
 		param_list.push(param);
-		console.log(param);
 	}
 	
-	//리스트를 json형태의 데이터로 변환
+	//json 형식으로 변환된 값을 리스트를 가진 json형태의 데이터로 변환시키고, 페이지 이동
 	param_json = {deleteuUser : JSON.stringify(param_list)}
-	console.log(param_json);
 	location.href="./user/delete_users/" + $.param(param_json);
 }
 

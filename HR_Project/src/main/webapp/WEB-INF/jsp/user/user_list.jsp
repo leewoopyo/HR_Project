@@ -145,19 +145,22 @@
 //데이터가 없을 때 처리할 부분
 $( document ).ready(function() {
 	
-	let blank = document.getElementById("blank");
-	let list_td = document.getElementsByClassName("list_td");
-	let chk_box = document.getElementsByClassName('chk_box');
-	let index_num = document.getElementsByClassName('index_num');
-	let pageNum = ${pageNum};
-	let list_length = checked_list.length;
+	let blank = document.getElementById("blank");		//데이터가 10개가 아닐 시 빈공간을 채워주는 공백
+	let list_td = document.getElementsByClassName("list_td");	//데이터 한줄을 의미(데이터가 10줄인지 판단하기 위해서 선언)
+	let chk_box = document.getElementsByClassName('chk_box');	//각 데이터의 체크 박스
+	let index_num = document.getElementsByClassName('index_num');	//각 데이터가 화면에 출력될 때 나오는 번호
+	let pageNum = ${pageNum};	//서버에서 받은 현제 페이지 번호
+	let list_length = checked_list.length;	//체크박스에 체크된 데이터의 갯수
 
+//-------------------------------------------------------------------------------------------------------------------
 	//리스트 테이블에 데이터가 10개 모두 있으면 빈공간 채우는 테이블을 없앤다.
 	if(list_td.length === 10){
 		blank.style.display = 'none';
 	}
-	
-	//리스트를 보고 체크하게 하는 기능
+
+//체크박스 관련 
+//-------------------------------------------------------------------------------------------------------------------	
+	//리스트를 보고 체크하게 하는 기능(다른 페이지에서 넘어왔을 때 체크상태가 유지 되게끔 함)
 	for(let i = 0;i < checked_list.length;i++){
 		for(let j=0;j < index_num.length;j++){
 			if(checked_list[i] === index_num[j].innerHTML){
@@ -166,7 +169,7 @@ $( document ).ready(function() {
 		}
 	}
 
-	//해당 페이지 리스트 초기화
+	//해당 페이지 들어갔을 때 해당 페이지의 체크박스 초기화(체크박스 데이터가 중복으로  들어가는 것을 막기 위해서) 
 	for(let i=0; i < list_length; i++){
 		for(let j = (pageNum*10)+1; j < (pageNum*10)+11 ; j++ ){
 			if(checked_list[i] === j.toString()){
@@ -175,6 +178,9 @@ $( document ).ready(function() {
 			}
 		}
 	}
+
+//정렬 관련 
+//-------------------------------------------------------------------------------------------------------------------
 
 	//정렬 정보 담기
 	sortType = '${sortType}';
@@ -190,8 +196,6 @@ $( document ).ready(function() {
 			icon[icon_direction+1].style.display = 'block';
 		}
 	}else if(icon_type === 'init'){
-/* 		sortType = 'id';
-		sortDirection = 'desc'; */
 		for(let i=0;i < icon.length;i++){
 			icon[i].style.display = 'none';
 		}

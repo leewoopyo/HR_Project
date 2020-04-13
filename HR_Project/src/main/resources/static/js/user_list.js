@@ -1,6 +1,6 @@
 //정렬 아이콘 설정
-var icon_type;
-var icon_direction;
+var icon_type;	//어느 필드의 아이콘
+var icon_direction;	//아이콘의 방향
 
 //모두 체크, 체크해제 시키는 메소드
 function allchk(){

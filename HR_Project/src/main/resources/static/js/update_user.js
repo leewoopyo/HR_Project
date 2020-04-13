@@ -1,10 +1,10 @@
-var chk_username = false;
-var chk_password = false;
-var chk_name = false;
-var chk_birth = false;
-var chk_tel = false;
-var chk_email = false;
-var chk_stype = false;
+var chk_username = false;	//아이디 유효성 여부(검사 통과 시  true)
+var chk_password = false;	//비밀번호 유효성 여부(검사 통과 시  true)
+var chk_name = false;	//이름 유효성 여부(검사 통과 시  true)
+var chk_birth = false;	//생년월일 유효성 여부(검사 통과 시  true)
+var chk_tel = false;	//전화번호 유효성 여부(검사 통과 시  true)
+var chk_email = false;	//이메일 유효성 여부(검사 통과 시  true)
+var chk_stype = false;	//성별 유효성 여부(검사 통과 시  true)
 
 ////이름 한글 체크
 function check_name() {
@@ -148,7 +148,6 @@ function update() {
 		tel_validation.innerHTML = "";
 		chk_tel = true;
 	}
-	
 	
 	console.log(telnum1);
 	console.log(telnum2);
