@@ -11,6 +11,10 @@ public interface User_Service {
 	public List<User> findAllPageable(int pageNum,String sortType, String sortDirection);
 	//필터 적용 데이터 조회 (페이지 적용)
 	public List<User> findAllByFilterAndPageable(String select_column, String find_str, int pageNum,String sortType,String sortDirection);
+	
+	//데이터 상세보기
+	public User user_info(String username); 
+	
 	//데이터 삽입
 	public void insert_user(User user);
 	//데이터 수정

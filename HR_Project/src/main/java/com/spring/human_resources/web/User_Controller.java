@@ -30,8 +30,8 @@ import com.spring.human_resources.service.User_Service;
 @Controller
 public class User_Controller {
 	
-	@Autowired
-	User_Repository user_Repository;
+//	@Autowired
+//	User_Repository user_Repository;
 	@Autowired
 	User_Service user_Service;
 	
@@ -68,7 +68,7 @@ public class User_Controller {
 	@RequestMapping(value="/user/user_info/{username}",method = RequestMethod.GET)
 	public String user_info(Model model, @PathVariable("username") String username){
 		
-		User user = user_Repository.findByUsername(username);
+		User user = user_Service.user_info(username);
 		
 		model.addAttribute("user", user);
 		
@@ -95,7 +95,6 @@ public class User_Controller {
 	//데이터 삽입 페이지 이동
 	@RequestMapping(value = "user/user_insert")
 	public String go_insert() {
-		
 		return "user/insert_user";
 	}
 	
@@ -106,8 +105,8 @@ public class User_Controller {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		try {
-			User list = user_Repository.findByUsername(username);
-			if(list == null) {
+			User user = user_Service.user_info(username);
+			if(user == null) {
 				map.put("message", "사용가능한 아이디입니다.");
 			}else {
 				map.put("message", "이미 사용되고 있는 아이디입니다.");
@@ -115,7 +114,6 @@ public class User_Controller {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		
 		return map;
 	}
 	
@@ -172,18 +170,17 @@ public class User_Controller {
 		return url;
 	}
 	
-	//더미 데이터 생성
-	@RequestMapping(value="/user/dummy")
-	public String dummy() {
-		
-		for(Integer i=0; i < 100; i++) {
-			User user = new User("testkopo"+i.toString());
-			user_Repository.save(user);			
-		}
-		
-		//회원 조회 페이지로 리다이렉트
-		return "index";
-	}
+//	//더미 데이터 생성
+//	@RequestMapping(value="/user/dummy")
+//	public String dummy() {
+//		
+//		for(Integer i=0; i < 100; i++) {
+//			User user = new User("testkopo"+i.toString());
+//			user_Repository.save(user);			
+//		}
+//		//회원 조회 페이지로 리다이렉트
+//		return "index";
+//	}
 	
 	//데이터 정렬하기
 	@RequestMapping(value="/user/sort/{sortType}/{sortDirection}/{pageNum}/{startPage}", method = RequestMethod.GET)
@@ -195,15 +192,14 @@ public class User_Controller {
 		System.out.println(sortType);
 		System.out.println(pageNum);
 		
-		Page<User> page = null;
-		
+		List<User> list = null;
+			
 		if(sortType.equals("username")) {
-			page =  user_Repository.findAll(PageRequest.of(pageNum,10, Sort.Direction.DESC, sortType));			
+			list = user_Service.findAllPageable(pageNum,sortType,sortDirection);
 		}else if(sortType.equals("created")){
-			page =  user_Repository.findAll(PageRequest.of(pageNum,10, Sort.Direction.DESC, sortType));
+			list = user_Service.findAllPageable(pageNum,sortType,sortDirection);
 		}
 		
-		List<User> list = page.getContent();
 		Long pageCnt = user_Service.calc_pagecnt();
 		
 		model.addAttribute("list", list);	//전체 데이터		

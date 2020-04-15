@@ -39,7 +39,6 @@ public class User_Service_Impl implements User_Service {
 			pageable = PageRequest.of(pageNum,10, Sort.Direction.ASC, sortType);
 		}
 		
-		
 		//해당 페이지 설정에 따른 전체 데이터를 page객체에 담음
 		Page<User> page = user_Repository.findAll(pageable);
 		//모델에 담기위해 page객체를 list로 변환
@@ -71,6 +70,13 @@ public class User_Service_Impl implements User_Service {
 
 		return list;
 	}
+	
+	//유저정보 상세보기
+	@Override
+	public User user_info(String username) {
+		User user = user_Repository.findByUsername(username);
+		return user;	
+	}
 
 	//데이터 삽입
 	@Override
@@ -79,7 +85,7 @@ public class User_Service_Impl implements User_Service {
 	}
 	
 	
-
+	//데이터 수정
 	@Override
 	public void update_user(User user, String update_name, Date update_birth, String update_tel, String update_eMail,
 			String update_sType) {
@@ -90,8 +96,6 @@ public class User_Service_Impl implements User_Service {
 		System.out.println(update_tel);
 		System.out.println(update_eMail);
 		System.out.println(update_sType);
-		
-		
 		
 		User updateUser = user_Repository.findByUsername(user.getUsername());
 		
