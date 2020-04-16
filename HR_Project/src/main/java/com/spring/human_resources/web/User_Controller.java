@@ -132,10 +132,10 @@ public class User_Controller {
 	
 	//데이터 수정 (유저 정보)
 	@RequestMapping(value = "user/update_user",method=RequestMethod.POST)
-	public ModelAndView update_user(Model model, User user,String update_name,@RequestParam @DateTimeFormat(pattern="yyyy-MM-dd") Date update_birth,String update_tel,String update_e_mail, String update_S_type) {
+	public ModelAndView update_user(Model model, User user,String update_name,@RequestParam @DateTimeFormat(pattern="yyyy-MM-dd") Date update_birth,String update_tel,String update_eMail, String update_sType) {
 	
 		//데이터를 넣는 서비스 호출
-		user_Service.update_user(user,update_name,update_birth,update_tel,update_e_mail,update_S_type);
+		user_Service.update_user(user,update_name,update_birth,update_tel,update_eMail,update_sType);
 
 		//회원 조회 페이지로 리다이렉트
 		ModelAndView url = new ModelAndView("redirect:/go_user");

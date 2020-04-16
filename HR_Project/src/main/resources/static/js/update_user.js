@@ -164,6 +164,8 @@ function update() {
 	eMail.value = eMail_val;
 	let eMail_validation = document.getElementById("eMail_validation");
 
+	console.log(eMail.value);
+	
 	//이메일 유효성 검사
 	if (eMail_front === '') {
 		eMail_validation.innerHTML = "이메일을 입력하세요.";
